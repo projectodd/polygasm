@@ -51,8 +51,12 @@ public class ServiceVerticle extends ClusteringVerticle {
                                     .putString("type", "provision")
                                     .putString("id", event.body().getString("id"))
                                     .putObject("config", event.body().getObject("config")));
+                            System.err.println( "REPLY" );
+                            event.reply(new JsonObject().putString("status", "OK"));
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            event.reply(new JsonObject()
+                                    .putString("status", "Error")
+                                    .putString("message", e.getLocalizedMessage()));
                         }
                     }
                 });
@@ -66,8 +70,11 @@ public class ServiceVerticle extends ClusteringVerticle {
                             sendClusterMessage(new JsonObject()
                                     .putString("type", "unprovision")
                                     .putString("id", event.body()));
+                            event.reply(new JsonObject().putString("status", "OK"));
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            event.reply(new JsonObject()
+                                    .putString("status", "Error")
+                                    .putString("message", e.getLocalizedMessage()));
                         }
                     }
                 });

@@ -26,6 +26,7 @@
     <vertx.testtools.version>2.0.0-final</vertx.testtools.version>
     <junit.version>4.11</junit.version>
     <jgroups.version>3.3.1.Final</jgroups.version>
+    <quartz.version>2.2.0</quartz.version>
 
     <maven.compiler.argument.source>1.8</maven.compiler.argument.source>
     <maven.compiler.argument.target>1.8</maven.compiler.argument.target>
@@ -83,6 +84,18 @@
         <groupId>org.jgroups</groupId>
         <artifactId>jgroups</artifactId>
         <version>${jgroups.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.quartz-scheduler</groupId>
+        <artifactId>quartz</artifactId>
+        <version>${quartz.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectodd.polygasm</groupId>
+        <artifactId>polygasm-fabric</artifactId>
+        <version>${project.version}</version>
       </dependency>
 
       <!-- Test -->

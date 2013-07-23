@@ -15,6 +15,7 @@
 
   <modules>
     <module>fabric</module>
+    <module>scheduler</module>
   </modules>
 
   <dependencies>
