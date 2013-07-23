@@ -1,0 +1,14 @@
+{
+  //"main":"org.projectodd.vertx.infinispan.InfinispanCacheVerticle",
+
+  // If your module is going to be registered in the Vert.x module registry you will also need the following
+  // mandatory fields
+  "description":"Non-executable module for JGroups",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "Bob McWhirter",
+
+  // Optional fields
+  "developers": ["Bob McWhirter"],
+  "keywords": ["jgroups"],
+  "homepage": "url to your project page"
+}
