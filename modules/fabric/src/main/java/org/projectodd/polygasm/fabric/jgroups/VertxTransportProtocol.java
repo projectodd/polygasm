@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.jgroups.PhysicalAddress;
 import org.jgroups.conf.ClassConfigurator;
 import org.jgroups.protocols.TP;
-import org.vertx.java.core.Context;
 import org.vertx.java.core.Vertx;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.shareddata.Shareable;

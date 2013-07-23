@@ -42,9 +42,7 @@ public class ClusteringVerticle extends Verticle {
     protected View view;
 
     /** 
-     * Initialize and connect the underlying cluster channel.  The cluster name
-     * must be provided through the verticle's configuration using the {@code cluster}
-     * key.
+     * Initialize and connect the underlying cluster channel.  
      * 
      * @throws Exception
      */
@@ -53,15 +51,13 @@ public class ClusteringVerticle extends Verticle {
     }
 
     /** 
-     * Initialize and optionally connect the underlying cluster channel.  The cluster
-     * name must be provided through the verticle's configuration using the {@code cluster}
-     * key.
+     * Initialize and optionally connect the underlying cluster channel.  
      * 
      * @param connect Determine if the channel should be automatically connected upon creation.
      * @throws Exception
      */
     protected void initChannel(boolean connect) throws Exception {
-        initChannel(container.config().getString("cluster"), connect);
+        initChannel( getClusterName(), connect);
     }
 
     /**
@@ -75,7 +71,7 @@ public class ClusteringVerticle extends Verticle {
     }
 
     /**
-     * Initialize and optionally connecto the underlying cluster channel.
+     * Initialize and optionally connect the underlying cluster channel.
      * 
      * @param cluster The cluster name.
      * @param connectDetermine if the channel should be automatically connected upon creation.
@@ -88,6 +84,23 @@ public class ClusteringVerticle extends Verticle {
         if (connect) {
             channel.connect(cluster);
         }
+    }
+    
+    /**
+     * Retrieve the default cluster name (using by {@link #initChannel} if none
+     * is passed through a parameter. 
+     * 
+     * By default, this uses the {@code cluster} key within the verticle's
+     * configuration, if present, otherwise, the simple name of the verticle class.
+     * 
+     * @return The default cluster name.
+     */
+    protected String getClusterName() {
+    	String name = container.config().getString("cluster");
+    	if ( name == null ) {
+    		name = getClass().getSimpleName();
+    	}
+    	return name;
     }
 
     @Override
@@ -175,7 +188,7 @@ public class ClusteringVerticle extends Verticle {
 
     /**
      * Called to deliver a message to the instance from another
-     * member in the cluser (or self).
+     * member in the cluster (or self).
      * 
      * @param message The message received.
      */
