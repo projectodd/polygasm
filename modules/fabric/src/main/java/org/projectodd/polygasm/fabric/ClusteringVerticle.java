@@ -1,4 +1,4 @@
-package org.projectodd.vertx.jgroups;
+package org.projectodd.polygasm.fabric;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +11,7 @@ import org.jgroups.Header;
 import org.jgroups.Message;
 import org.jgroups.Receiver;
 import org.jgroups.View;
+import org.projectodd.polygasm.fabric.jgroups.ChannelFactory;
 import org.vertx.java.core.Context;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;

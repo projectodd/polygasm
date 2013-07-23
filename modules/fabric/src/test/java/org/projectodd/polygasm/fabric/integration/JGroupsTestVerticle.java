@@ -1,7 +1,7 @@
-package org.projectodd.vertx.jgroups.integration;
+package org.projectodd.polygasm.fabric.integration;
 
 import org.jgroups.Address;
-import org.projectodd.vertx.jgroups.ClusteringVerticle;
+import org.projectodd.polygasm.fabric.ClusteringVerticle;
 import org.vertx.java.core.Future;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonArray;

@@ -1,4 +1,4 @@
-package org.projectodd.vertx.jgroups;
+package org.projectodd.polygasm.fabric.jgroups;
 
 
 import org.vertx.java.core.Future;

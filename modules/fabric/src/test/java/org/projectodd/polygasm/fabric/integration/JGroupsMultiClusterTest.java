@@ -1,6 +1,4 @@
-package org.projectodd.vertx.jgroups.integration;
-
-import java.util.Arrays;
+package org.projectodd.polygasm.fabric.integration;
 
 import org.junit.Test;
 import org.vertx.java.core.AsyncResult;
@@ -12,7 +10,7 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.testtools.TestVerticle;
 import org.vertx.testtools.VertxAssert;
 
-public class JGroupsSingleClusterTest extends TestVerticle {
+public class JGroupsMultiClusterTest extends TestVerticle {
 
     private int responsesSeen = 0;
 
@@ -36,7 +34,7 @@ public class JGroupsSingleClusterTest extends TestVerticle {
                         VertxAssert.assertNotNull("deploymentID should not be null", asyncResult.result());
                         container.deployVerticle(JGroupsTestVerticle.class.getName(),
                                 new JsonObject()
-                                        .putString("cluster", "tacos"),
+                                        .putString("cluster", "potatoes"),
                                 2,
                                 new AsyncResultHandler<String>() {
                                     @Override
@@ -61,8 +59,7 @@ public class JGroupsSingleClusterTest extends TestVerticle {
         vertx.eventBus().registerHandler("test.tacos.responses", new Handler<Message<JsonArray>>() {
             @Override
             public void handle(Message<JsonArray> event) {
-                System.err.println( "view: " + Arrays.asList( event.body().toArray() ) );
-                VertxAssert.assertEquals(4, event.body().size());
+                VertxAssert.assertEquals(2, event.body().size());
                 ++responsesSeen;
                 if (responsesSeen == 4) {
                     VertxAssert.testComplete();
@@ -70,11 +67,19 @@ public class JGroupsSingleClusterTest extends TestVerticle {
             }
         });
         
-        vertx.eventBus().send( "test.tacos.bridge", new JsonObject().putString( "payload", "HOWDY!" ) );
-        vertx.eventBus().send( "test.tacos.bridge", new JsonObject().putString( "cheese", "cheddar!" ) );
-        Thread.sleep( 1000 );
+        vertx.eventBus().registerHandler("test.potatoes.responses", new Handler<Message<JsonArray>>() {
+            @Override
+            public void handle(Message<JsonArray> event) {
+                VertxAssert.assertEquals(2, event.body().size());
+                ++responsesSeen;
+                if (responsesSeen == 4) {
+                    VertxAssert.testComplete();
+                }
+            }
+        });
 
         vertx.eventBus().publish("test.tacos", true);
+        vertx.eventBus().publish("test.potatoes", true);
     }
 
 }

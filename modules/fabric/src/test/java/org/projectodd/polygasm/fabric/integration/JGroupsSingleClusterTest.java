@@ -1,4 +1,6 @@
-package org.projectodd.vertx.jgroups.integration;
+package org.projectodd.polygasm.fabric.integration;
+
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.vertx.java.core.AsyncResult;
@@ -10,7 +12,7 @@ import org.vertx.java.core.json.JsonObject;
 import org.vertx.testtools.TestVerticle;
 import org.vertx.testtools.VertxAssert;
 
-public class JGroupsMultiClusterTest extends TestVerticle {
+public class JGroupsSingleClusterTest extends TestVerticle {
 
     private int responsesSeen = 0;
 
@@ -34,7 +36,7 @@ public class JGroupsMultiClusterTest extends TestVerticle {
                         VertxAssert.assertNotNull("deploymentID should not be null", asyncResult.result());
                         container.deployVerticle(JGroupsTestVerticle.class.getName(),
                                 new JsonObject()
-                                        .putString("cluster", "potatoes"),
+                                        .putString("cluster", "tacos"),
                                 2,
                                 new AsyncResultHandler<String>() {
                                     @Override
@@ -59,7 +61,8 @@ public class JGroupsMultiClusterTest extends TestVerticle {
         vertx.eventBus().registerHandler("test.tacos.responses", new Handler<Message<JsonArray>>() {
             @Override
             public void handle(Message<JsonArray> event) {
-                VertxAssert.assertEquals(2, event.body().size());
+                System.err.println( "view: " + Arrays.asList( event.body().toArray() ) );
+                VertxAssert.assertEquals(4, event.body().size());
                 ++responsesSeen;
                 if (responsesSeen == 4) {
                     VertxAssert.testComplete();
@@ -67,19 +70,11 @@ public class JGroupsMultiClusterTest extends TestVerticle {
             }
         });
         
-        vertx.eventBus().registerHandler("test.potatoes.responses", new Handler<Message<JsonArray>>() {
-            @Override
-            public void handle(Message<JsonArray> event) {
-                VertxAssert.assertEquals(2, event.body().size());
-                ++responsesSeen;
-                if (responsesSeen == 4) {
-                    VertxAssert.testComplete();
-                }
-            }
-        });
+        vertx.eventBus().send( "test.tacos.bridge", new JsonObject().putString( "payload", "HOWDY!" ) );
+        vertx.eventBus().send( "test.tacos.bridge", new JsonObject().putString( "cheese", "cheddar!" ) );
+        Thread.sleep( 1000 );
 
         vertx.eventBus().publish("test.tacos", true);
-        vertx.eventBus().publish("test.potatoes", true);
     }
 
 }

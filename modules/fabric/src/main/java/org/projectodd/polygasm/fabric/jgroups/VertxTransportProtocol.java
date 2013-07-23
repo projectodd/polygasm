@@ -1,4 +1,4 @@
-package org.projectodd.vertx.jgroups;
+package org.projectodd.polygasm.fabric.jgroups;
 
 
 import java.util.concurrent.atomic.AtomicInteger;

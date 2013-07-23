@@ -14,7 +14,7 @@
   <description />
 
   <modules>
-    <module>jgroups</module>
+    <module>fabric</module>
   </modules>
 
   <dependencies>

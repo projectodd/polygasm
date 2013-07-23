@@ -10,9 +10,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>polygasm-jgroups</artifactId>
+  <artifactId>polygasm-fabric</artifactId>
   <packaging>jar</packaging>
-  <name>JGroups Base Module</name>
+  <name>Base Fabric Module</name>
 
   <properties>
     <module.name>${project.groupId}~${project.artifactId}~${project.version}</module.name>
